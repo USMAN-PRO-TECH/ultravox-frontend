@@ -20,7 +20,7 @@ export function NavBar({ activeTab }: NavBarProps) {
           <Mic className="h-4 w-4" />
           Prompt
         </Button>
-        <Button 
+        {/* <Button 
           variant="ghost" 
           className={`flex items-center gap-2 ${
             activeTab === 'setup' 
@@ -30,8 +30,8 @@ export function NavBar({ activeTab }: NavBarProps) {
         >
           <Settings className="h-4 w-4" />
           Setup
-        </Button>
-        <Button 
+        </Button> */}
+        {/* <Button 
           variant="ghost" 
           className={`flex items-center gap-2 ${
             activeTab === 'action' 
@@ -41,7 +41,7 @@ export function NavBar({ activeTab }: NavBarProps) {
         >
           <Zap className="h-4 w-4" />
           Action
-        </Button>
+        </Button> */}
       </div>
 
     </div>

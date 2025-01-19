@@ -14,14 +14,14 @@ import { useAuth } from '@/app/contexts/AuthContext'
 
 const navigation = [
   { name: "Assistants", icon: Home, href: "/dashboard", protected: true },
-  { name: "Phone Numbers", icon: Phone, href: "/phone-numbers", protected: true },
-  { name: "Knowledge Base", icon: BookOpen, href: "/knowledge-base", protected: true },
-  { name: "Batch Calls", icon: List, href: "/batch-calls", protected: true },
+  // { name: "Phone Numbers", icon: Phone, href: "/phone-numbers", protected: true },
+  // { name: "Knowledge Base", icon: BookOpen, href: "/knowledge-base", protected: true },
+  // { name: "Batch Calls", icon: List, href: "/batch-calls", protected: true },
   { name: "Settings", icon: Settings, href: "/settings", protected: true },
   { name: "Logs", icon: Activity, href: "/logs", protected: true },
-  { name: "Integrations", icon: Layers, href: "/integrations", protected: true },
-  { name: "API Key", icon: Key, href: "/api-key", protected: true },
-  { name: "Tools", icon: Wrench, href: "/dashboard/tools", protected: true },
+  // { name: "Integrations", icon: Layers, href: "/integrations", protected: true },
+  // { name: "API Key", icon: Key, href: "/api-key", protected: true },
+  // { name: "Tools", icon: Wrench, href: "/dashboard/tools", protected: true },
 ]
 
 interface SidebarProps extends React.HTMLAttributes<HTMLDivElement> {}
@@ -51,20 +51,21 @@ export function AppSidebar
 
 function SidebarContent({ pathname, isAuthenticated }: { pathname: string, isAuthenticated: boolean }) {
   return (
-    <div className="flex h-full flex-col">
+    <div className="flex h-full flex-col radial-gradient-bg-sidebar-green text-white">
       <div className="border-b p-4">
         <div className="flex items-center gap-3">
           <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-black">
-            <span className="text-xl font-bold text-white">C</span>
+            {/* <span className="text-xl font-bold text-white">C</span> */}
+            <img src="/cryp-logo.jpeg" alt="logo" className="h-10 w-10 rounded-lg" />
           </div>
           <div className="flex flex-col">
-            <h2 className="text-lg font-semibold">Call Support</h2>
-            <p className="text-sm text-muted-foreground">Enterprise</p>
+            <h2 className="text-lg font-semibold">Max Profit</h2>
+            <p className="text-sm text-muted-foreground">To the moon</p>
           </div>
         </div>
       </div>
       <ScrollArea className="flex-1">
-        <nav className="space-y-1 p-2">
+        <nav className="space-y-1 p-2 text-white">
           {navigation.map((item) => {
             if (item.protected && !isAuthenticated) return null;
 
@@ -75,14 +76,14 @@ function SidebarContent({ pathname, isAuthenticated }: { pathname: string, isAut
                 key={item.name}
                 href={item.href}
                 className={cn(
-                  "flex items-center gap-3 rounded-lg px-3 py-2 text-sm transition-colors",
+                  "flex items-center gap-3 rounded-lg px-3 py-2 text-sm transition-colors text-white",
                   isActive
-                    ? "bg-gray-100 text-black hover:bg-gray-200"
+                    ? "bg-gray-100   hover:bg-gray-200 text-white"
                     : "text-muted-foreground hover:bg-muted hover:text-foreground"
                 )}
               >
-                <item.icon className="h-5 w-5" />
-                {item.name}
+                <item.icon className="h-5 w-5" color="#25f111" />
+                <span className="text-white">{item.name}</span>
               </Link>
             )
           })}

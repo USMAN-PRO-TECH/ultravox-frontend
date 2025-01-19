@@ -60,7 +60,7 @@ export function InstructionsForm() {
       
       <div className="flex items-center gap-3">
         <Select>
-          <SelectTrigger className="w-[600px] h-10">
+          <SelectTrigger className="w-[600px] h-10 border-white">
             <SelectValue placeholder="Select a Category" />
           </SelectTrigger>
           <SelectContent>
@@ -70,17 +70,17 @@ export function InstructionsForm() {
           </SelectContent>
         </Select>
 
-        <Button 
+        {/* <Button 
           variant="outline" 
           className="flex items-center gap-2 px-4 h-10 whitespace-nowrap"
         >
           <FileText className="h-4 w-4" />
           Prompt Guideline
-        </Button>
+        </Button> */}
       </div>
 
       <div className="space-y-4">
-        <div className="space-y-2">
+        {/* <div className="space-y-2">
           <Label className="text-[15px] font-medium text-foreground">
             First Sentence
           </Label>
@@ -90,14 +90,14 @@ export function InstructionsForm() {
             onChange={(e) => setFirstMessage(e.target.value)}
             className="h-10"
           />
-        </div>
+        </div> */}
 
         <div className="space-y-2">
           <Label className="text-[15px] font-medium text-foreground">
             Instructions
           </Label>
           <Textarea
-            className="min-h-[180px] resize-none leading-relaxed"
+            className="min-h-[180px] resize-none leading-relaxed border-white"
             placeholder="Enter detailed instructions"
             value={content}
             onChange={(e) => setContent(e.target.value)}

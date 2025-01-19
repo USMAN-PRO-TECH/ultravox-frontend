@@ -104,22 +104,22 @@ export function TestSection({ params }: TestSectionProps) {
   }
 
   return (
-    <div className="h-full bg-white">
+    <div className="h-full  ">
       <Tabs defaultValue="test" className="h-full">
         <TabsList className="grid w-full grid-cols-2">
           <TabsTrigger 
             value="test" 
-            className="rounded-none border-b border-[#E5E7EB] data-[state=active]:border-[#2563EB] data-[state=active]:border-b-2 data-[state=active]:shadow-none flex items-center gap-2"
+            className="rounded-none border-b w-full border-[#E5E7EB] data-[state=active]:border-[#2563EB] data-[state=active]:border-b-2 data-[state=active]:shadow-none flex items-center gap-2"
           >
-            <Phone className="h-4 w-4" />
+            <Phone className="h-4 w-4 text-[#25f111]" />
             Test Audio
           </TabsTrigger>
-          <TabsTrigger 
+          {/* <TabsTrigger 
             value="variables"
             className="rounded-none border-b border-[#E5E7EB] data-[state=active]:border-[#2563EB] data-[state=active]:border-b-2 data-[state=active]:shadow-none"
           >
             Variables
-          </TabsTrigger>
+          </TabsTrigger> */}
         </TabsList>
         <TabsContent value="test" className="px-4 py-4">
           {!isRecording ? (
@@ -127,10 +127,10 @@ export function TestSection({ params }: TestSectionProps) {
             <div className="space-y-8 text-center py-4">
               <div className="flex flex-col items-center space-y-6">
                 <div className="w-20 h-20 rounded-full bg-gray-50 flex items-center justify-center">
-                  <Mic className="h-8 w-8 text-gray-400" />
+                  <Mic className="h-8 w-8 text-gray-400 text-[#25f111]" />
                 </div>
                 <div className="space-y-1.5">
-                  <h3 className="text-xl font-semibold text-[#111827]">Test your agent</h3>
+                  <h3 className="text-xl font-semibold text-[#ffffff]">Test your agent</h3>
                   <p className="text-sm text-[#6B7280]">
                     Start a conversation with your AI assistant
                   </p>
@@ -141,7 +141,7 @@ export function TestSection({ params }: TestSectionProps) {
                 onClick={handleRecordingToggle}
                 className="w-full h-11 text-white rounded-md transition-colors bg-[#18181B] hover:bg-[#18181B]/90"
               >
-                <Mic className="mr-2 h-5 w-5" />
+                <Mic className="mr-2 h-5 w-5 text-[#25f111]" />
                 Start Test
               </Button>
             </div>
@@ -161,7 +161,7 @@ export function TestSection({ params }: TestSectionProps) {
                       className={cn(
                         "p-3 rounded-lg",
                         transcript.speaker === "agent" 
-                          ? "bg-gray-100" 
+                          ? "bg-gray-100 text-black" 
                           : "bg-black text-white"
                       )}
                     >

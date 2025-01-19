@@ -50,11 +50,11 @@ export function VoiceLanguageSelector() {
 
   return (
     <div className="space-y-6">
-      <h2 className="text-lg font-semibold">Voice and Language</h2>
+      <h2 className="text-lg font-semibold">Voice and Charactors</h2>
       <div className="flex items-center gap-3">
         <VoiceSelector />
 
-        <Select 
+        {/* <Select 
           defaultValue={selectedLanguage} 
           value={selectedLanguage} 
           onValueChange={handleLanguageChange}
@@ -67,25 +67,22 @@ export function VoiceLanguageSelector() {
           </SelectTrigger>
           <SelectContent>
             <SelectItem value="en">
-              <div className="flex items-center gap-2">
-                {/* <GB className="h-4 w-4" /> */}
+              <div className="flex items-center gap-2"> 
                 <span>English</span>
               </div>
             </SelectItem>
             <SelectItem value="es">
-              <div className="flex items-center gap-2">
-                {/* <ES className="h-4 w-4" /> */}
+              <div className="flex items-center gap-2"> 
                 <span>Spanish</span>
               </div>
             </SelectItem>
             <SelectItem value="fr">
-              <div className="flex items-center gap-2">
-                {/* <FR className="h-4 w-4" /> */}
+              <div className="flex items-center gap-2"> 
                 <span>French</span>
               </div>
             </SelectItem>
           </SelectContent>
-        </Select>
+        </Select> */}
 
        
       </div>

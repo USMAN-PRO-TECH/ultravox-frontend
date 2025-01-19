@@ -68,7 +68,7 @@ export function VoiceSelector() {
       defaultValue={currentVoice || voices[0]?.voiceId}
       onValueChange={handleVoiceChange}
     >
-      <SelectTrigger className="h-11 w-[280px]">
+      <SelectTrigger className="h-11 w-[280px] border-white">
         <div className="flex items-center gap-2">
           <Avatar className="h-6 w-6">
             <AvatarImage src="/placeholder.svg" />

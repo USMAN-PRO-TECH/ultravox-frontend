@@ -29,15 +29,27 @@ export function toggleMute(role: Role): void {
 
 async function createCall(callConfig: CallConfig, showDebugMessages?: boolean): Promise<JoinUrlResponse> {
   try {
-    if(showDebugMessages) {
-
+    const user = localStorage.getItem('user');
+    if (!user) {
+      throw new Error('User not found in localStorage');
+    }
+    
+    const parsedUser = JSON.parse(user);
+    console.log('parsedUser',parsedUser)
+    const key = parsedUser.apiKey;
+    if (!key) {
+      throw new Error('API key not found in user data');
+    }
+    
+    if (showDebugMessages) {
+      console.log('Creating call with config:', callConfig);
     }
 
-    const response = await fetch(`https://devapi.callsupport.ai/api/v1/calls`, {
+    const response = await fetch(`http://localhost:5500/api/v1/calls`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'x-api-key': 'e4b52690-b142-43a5-92c7-cad803a35f00'  // Add your API key here
+        'x-api-key': key
       },
       body: JSON.stringify(callConfig),
     });
@@ -46,12 +58,14 @@ async function createCall(callConfig: CallConfig, showDebugMessages?: boolean): 
       const errorText = await response.text();
       throw new Error(`HTTP error! status: ${response.status}, message: ${errorText}`);
     }
-    const data: JoinUrlResponse = await response.json();
 
-    if(showDebugMessages) {
+    const data: JoinUrlResponse = await response.json();
+    
+    if (showDebugMessages) {
       console.log(`Call created. Join URL: ${data.joinUrl}`);
     }
-    console.log("response", data)
+    
+    console.log("Response:", data);
     return data;
   } catch (error) {
     console.error('Error creating call:', error);

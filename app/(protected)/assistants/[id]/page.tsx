@@ -59,17 +59,17 @@ const modelOptions: ModelOption[] = [
 ];
 
 const ModelOptionContent = ({ option }: { option: ModelOption }) => (
-  <div className="flex items-center justify-between w-full">
+  <div className="flex items-center justify-between w-full ">
     <div className="flex items-center gap-1.5">
       <span>{option.name}</span>
       {option.isRecommended && <Check className="h-3.5 w-3.5" />}
-      <div className="flex items-center gap-1 text-gray-500">
+      <div className="flex items-center gap-1 text-white">
         <Clock className="h-3.5 w-3.5" />
         <span>{option.latency}ms</span>
       </div>
     </div>
     {option.badge && (
-      <Badge className={`${option.badge.color} px-3 py-0.5 h-6`}>
+      <Badge className={`${option.badge.color} px-3 ml-3 py-0.5 h-6 text-white`}>
         {option.badge.text}
       </Badge>
     )}
@@ -105,20 +105,21 @@ export default function AIAssistantConfig({ params }: { params: { id: string } }
       <NavBar activeTab="prompt"  />
       <div className="flex flex-1 h-full">
         <div className="flex-1 min-w-0 h-full">
-          <div className="h-full p-6">
+          <div className="h-full p-6 ">
             <div className="space-y-6">
-              <AssistantName initialName={assistant.name} />
+              {/* <AssistantName initialName={assistant.name} /> */}
               <Select 
                 defaultValue="gpt4" 
                 value={selectedModel} 
                 onValueChange={setSelectedModel}
+              
               >
-                <SelectTrigger className="h-11 w-[340px]">
-                  <ModelOptionContent option={modelOptions.find(m => m.id === selectedModel)!} />
+                <SelectTrigger className="h-11 w-[340px] border-white text-white hidden">
+                  <ModelOptionContent  option={modelOptions.find(m => m.id === selectedModel)!} />
                 </SelectTrigger>
                 <SelectContent>
                   {modelOptions.map((option) => (
-                    <SelectItem key={option.id} value={option.id}>
+                    <SelectItem key={option.id} value={option.id} className="text-white hidden">
                       <ModelOptionContent option={option} />
                     </SelectItem>
                   ))}
@@ -133,7 +134,7 @@ export default function AIAssistantConfig({ params }: { params: { id: string } }
             </div>
           </div>
         </div>
-        <div className="w-[320px] border-l bg-white">
+        <div className="w-[320px] border-l">
           <div className="sticky top-0 h-full">
             <TestSection params={params} />
           </div>
