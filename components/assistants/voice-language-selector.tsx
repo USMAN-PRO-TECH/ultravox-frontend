@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react"
 import { useParams } from "next/navigation"
 import { VoiceSelector } from "@/components/voices/voice-selector"
+import { VoiceSelectorButtons } from "@/components/voices/voice-selector-buttons"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Badge } from "@/components/ui/badge"
 import { Clock, Check } from 'lucide-react'
@@ -9,6 +10,9 @@ import { assistantService } from "../../src/services/assistantService"
 import { GB, ES, FR } from 'country-flag-icons/react/3x2'
 import { showToast } from '@/lib/toast';
 import { toast } from 'react-hot-toast';
+import { useDispatch } from "react-redux"
+import { AppDispatch } from "@/store/store"
+import { fetchVoiceList } from "@/store/actions/voiceActions"
 
 const languageIcons = {
   en: <GB className="h-4 w-4" />,
@@ -18,7 +22,10 @@ const languageIcons = {
 
 export function VoiceLanguageSelector() {
   const params = useParams()
+  const dispatch = useDispatch<AppDispatch>();
   const [selectedLanguage, setSelectedLanguage] = useState("en")
+  const [selectedVoice, setSelectedVoice] = useState<string>("")
+  const [currentVoice, setCurrentVoice] = useState<string>(selectedVoice);
 
   // Fetch initial language
   useEffect(() => {
@@ -27,7 +34,22 @@ export function VoiceLanguageSelector() {
       setSelectedLanguage(data.language || "en")
     }
     fetchAssistantLanguage()
-  }, [params.id])
+    dispatch(fetchVoiceList());
+    // Fetch current assistant voice
+    const fetchCurrentVoice = async () => {
+      try {
+        const assistant = await assistantService.getAssistant(params.id.toString());
+        if (assistant.data.providerId) {
+          setCurrentVoice(assistant.data.providerId);
+          setSelectedVoice(assistant.data.providerId);
+        }
+      } catch (error) {
+        console.error("Error fetching current voice:", error);
+      }
+    };
+    fetchCurrentVoice();
+
+  }, [dispatch, params.id])
 
   const handleLanguageChange = async (value: string) => {
     const loadingToast = showToast.loading("Updating language...");
@@ -51,9 +73,8 @@ export function VoiceLanguageSelector() {
   return (
     <div className="space-y-6">
       <h2 className="text-lg font-semibold">Voice and Charactors</h2>
-      <div className="flex items-center gap-3">
-        <VoiceSelector />
-
+      <div className="flex items-center gap-5">
+        <VoiceSelector setSelectedVoice={setSelectedVoice} selectedVoice={selectedVoice} /> 
         {/* <Select 
           defaultValue={selectedLanguage} 
           value={selectedLanguage} 
@@ -82,10 +103,11 @@ export function VoiceLanguageSelector() {
               </div>
             </SelectItem>
           </SelectContent>
-        </Select> */}
-
-       
+        </Select> */} 
       </div>
+      <div className="flex items-center gap-3">
+        <VoiceSelectorButtons setSelectedVoice={setSelectedVoice} selectedVoice={selectedVoice} />
+       </div>
     </div>
   )
 }

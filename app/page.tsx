@@ -11,7 +11,8 @@ export default function Home() {
   useEffect(() => {
     if (!isLoading) {
       if (isAuthenticated) {
-        router.push('/dashboard')
+        // router.push('/dashboard')
+        router.push('/assistants/678f496729ad5fd57bd6095c')
       } else {
         router.push('/login')
       }

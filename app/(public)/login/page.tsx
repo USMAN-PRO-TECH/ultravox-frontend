@@ -16,16 +16,18 @@ export default function LoginPage() {
 
   useEffect(() => {
     if (isAuthenticated && !isLoading) {
-      router.push('/dashboard')
+      // router.push('/dashboard')
+      router.push('/assistants/678f496729ad5fd57bd6095c')
     }
   }, [isAuthenticated, isLoading, router])
-
+  
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     
     try {
       await login(email, password)
-      router.push('/dashboard')
+      router.push('/assistants/678f496729ad5fd57bd6095c')
+      // router.push('/dashboard')
     } catch (error) {
       // Error toast is already handled in the AuthContext
       console.error('Login failed:', error)

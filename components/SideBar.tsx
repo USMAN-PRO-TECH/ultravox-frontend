@@ -13,7 +13,7 @@ import { Progress } from "@/components/ui/progress"
 import { useAuth } from '@/app/contexts/AuthContext'
 
 const navigation = [
-  { name: "Assistants", icon: Home, href: "/dashboard", protected: true },
+  { name: "Assistant", icon: Home, href: "/assistants/678f496729ad5fd57bd6095c", protected: true },
   // { name: "Phone Numbers", icon: Phone, href: "/phone-numbers", protected: true },
   // { name: "Knowledge Base", icon: BookOpen, href: "/knowledge-base", protected: true },
   // { name: "Batch Calls", icon: List, href: "/batch-calls", protected: true },

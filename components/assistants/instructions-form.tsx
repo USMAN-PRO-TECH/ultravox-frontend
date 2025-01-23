@@ -50,7 +50,7 @@ export function InstructionsForm() {
   };
 
   return (
-    <div className="space-y-5 max-w-full">
+    <div className="space-y-5 max-w-full hidden">
       <div className="space-y-1">
         <h2 className="text-lg font-semibold">Instructions for your AI Assistant</h2>
         <p className="text-sm text-muted-foreground">

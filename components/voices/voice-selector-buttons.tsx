@@ -1,44 +1,21 @@
-import { useEffect, useMemo, useState } from "react"
-import { useDispatch, useSelector } from "react-redux"
-import { AppDispatch, RootState } from "../../store/store"
-import { fetchVoiceList } from "../../store/actions/voiceActions"
-import { Avatar, AvatarImage } from "../ui/avatar"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../ui/select"
-import { Skeleton } from "../ui/skeleton"
-import { Voice } from "../../src/types/voice"
-import { assistantService } from "../../src/services/assistantService"
+import React, { useEffect, useMemo, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from "next/navigation"
+import { fetchVoiceList } from "../../store/actions/voiceActions"
+import { AppDispatch, RootState } from "../../store/store"
+import { assistantService } from "../../src/services/assistantService"
 import { showToast } from '@/lib/toast';
+import { Skeleton } from "../ui/skeleton"
 import { toast } from 'react-hot-toast';
+import { Avatar, AvatarImage } from "../ui/avatar"
 
-export function VoiceSelector({setSelectedVoice, selectedVoice}: {setSelectedVoice: (voice: string) => void, selectedVoice: string}) {
+export function VoiceSelectorButtons({setSelectedVoice, selectedVoice}: {setSelectedVoice: (voice: string) => void, selectedVoice: string}) {
   const params = useParams();
   const dispatch = useDispatch<AppDispatch>();
   const { voices, loading, error } = useSelector((state: RootState) => state.voices);
   const [currentVoice, setCurrentVoice] = useState<string>(selectedVoice);
-  
-  // useEffect(() => {
-  //   dispatch(fetchVoiceList());
-  //   // Fetch current assistant voice
-  //   const fetchCurrentVoice = async () => {
-  //     try {
-  //       const assistant = await assistantService.getAssistant(params.id.toString());
-  //       if (assistant.data.providerId) {
-  //         setCurrentVoice(assistant.data.providerId);
-  //       }
-  //     } catch (error) {
-  //       console.error("Error fetching current voice:", error);
-  //     }
-  //   };
-  //   fetchCurrentVoice();
-  // }, [dispatch, params.id]);
 
-  useMemo(() => { 
-    console.log(selectedVoice);
-      setCurrentVoice(selectedVoice); 
-  }, [selectedVoice])
-  
-  const getVoiceImage = (voiceName: string): string => {
+const getVoiceImage = (voiceName: string): string => {
     const voiceImages: { [key: string]: string } = {
         "Trump": "/trump.webp",
         "Steve-English-Australian" : "/Steve-English-Australian.jpeg",
@@ -70,18 +47,40 @@ const getVoiceName = (voiceName: string): string => {
     };
     return voiceNames[voiceName] || voiceName;
 };
+//   useEffect(() => {
+//     dispatch(fetchVoiceList());
+//     // Fetch current assistant voice
+//     const fetchCurrentVoice = async () => {
+//       try {
+//         const assistant = await assistantService.getAssistant(params.id.toString());
+//         if (assistant.data.providerId) {
+//           setCurrentVoice(assistant.data.providerId);
+//         }
+//       } catch (error) {
+//         console.error("Error fetching current voice:", error);
+//       }
+//     };
+//     fetchCurrentVoice();
+//   }, [dispatch, params.id]);
+
+  useMemo(() => { 
+    console.log(selectedVoice);
+      setCurrentVoice(selectedVoice); 
+  }, [selectedVoice])
+
   const handleVoiceChange = async (selectedVoiceId: string) => {
     const loadingToast = showToast.loading("Updating voice...");
     try {
       // Find the selected voice object
       const selectedVoice = voices.find(voice => voice.voiceId === selectedVoiceId);
-      
+
       if (selectedVoice) {
         await assistantService.updateAssistant(params.id.toString(), {
           provider: selectedVoice.name, // Using name as provider
           providerId: selectedVoice.voiceId // Using voiceId as providerId
         });
         await assistantService.getAssistant(params.id.toString());
+        setCurrentVoice(selectedVoice.voiceId as string);
         setSelectedVoice(selectedVoice.voiceId as string);
         toast.dismiss(loadingToast);
         showToast.success("Voice updated successfully");
@@ -102,30 +101,32 @@ const getVoiceName = (voiceName: string): string => {
   }
 
   return (
-    <Select 
-      defaultValue={currentVoice || voices[0]?.voiceId}
-      onValueChange={handleVoiceChange}
-    >
-      <SelectTrigger className="h-11 w-[280px] border-white">
-        <div className="flex items-center gap-2">
-          <Avatar className="h-6 w-6">
-            <AvatarImage src="/placeholder.svg" />
-          </Avatar>
-          <SelectValue placeholder="Select voice" />
-        </div>
-      </SelectTrigger>
-      <SelectContent>
-        {voices.map((voice: Voice) => (
-          <SelectItem key={voice.voiceId} value={voice.voiceId}>
-            <div className="flex items-center gap-2">
-              <Avatar className="h-6 w-6">
+    <div className="w-[60%]">
+    {voices.reduce<{ voiceId: string; name: string }[][]>((rows, voice, index) => {
+      if (index % 2 === 0) {
+        rows.push([voice]);
+      } else {
+        rows[rows.length - 1].push(voice);
+      }
+      return rows;
+    }, []).map((pair, rowIndex) => (
+      <div key={rowIndex} className="flex items-center">
+        {pair.map((voice: { voiceId: React.Key | null | undefined; name: string | number | bigint | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal | Promise<React.AwaitedReactNode> | null | undefined; }) => (
+          <button
+            key={voice.voiceId}
+            className={`h-12 w-1/2 m-2 px-4 rounded-md text-white transition-colors flex items-center justify-center gap-2 ${
+              currentVoice === voice.voiceId ? 'bg-purple-400' : 'bg-purple-900 hover:bg-gray-400'
+            }`}
+            onClick={() => handleVoiceChange(voice.voiceId)}
+          > 
+              <Avatar className="h-10 w-10">
                 <AvatarImage src={getVoiceImage(voice.name)} />
               </Avatar>
-              <span>{getVoiceName(voice.name)}</span>
-              </div>
-          </SelectItem>
+              <span>{getVoiceName(voice.name)}</span> 
+          </button>
         ))}
-      </SelectContent>
-    </Select>
+      </div>
+    ))}
+  </div>
   );
-} 
+}

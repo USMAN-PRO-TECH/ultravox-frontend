@@ -45,7 +45,7 @@ async function createCall(callConfig: CallConfig, showDebugMessages?: boolean): 
       console.log('Creating call with config:', callConfig);
     }
 
-    const response = await fetch(`http://localhost:5500/api/v1/calls`, {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/calls`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

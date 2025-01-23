@@ -35,7 +35,7 @@ export default function AssistantsPage() {
 
   return (
     <div className="flex flex-col h-full w-full">
-      <div className="sticky top-0 flex items-center justify-between p-6 border-b bg-white z-10">
+      <div className="sticky top-0 flex items-center justify-between p-6 border-b bg-white z-10 radial-gradient-bg-sidebar-green">
         <div className="w-[300px]">
           {/* <SearchInput
             placeholder="Search by name"
@@ -46,7 +46,7 @@ export default function AssistantsPage() {
         {open && <TemplateSelector open={open} onOpenChange={setOpen} />}
       </div>
       <div className="flex-1 p-6">
-        <div className="w-full bg-white border rounded-md">
+        <div className="w-full bg-white border rounded-md radial-gradient-bg-sidebar-green">
           <AssistantsTable
             // assistants={filteredAssistants}
             // onDelete={handleDelete}
