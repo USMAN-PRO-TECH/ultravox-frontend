@@ -49,11 +49,12 @@ export function TestSection({ params }: TestSectionProps) {
   const handleStartCall = async () => {
     try {
       const updatedAssistant = await assistantService.getAssistant(params.id)
+      console.log(updatedAssistant.data)
       const realConfig = {
         title: updatedAssistant.data.name,
         overview: updatedAssistant.data.firstMessage,
         callConfig: {
-          systemPrompt: updatedAssistant.data.content,
+          systemPrompt: `hello, talk like ${updatedAssistant.data.provider} and respond to me`,//updatedAssistant.data.content,
           model: "fixie-ai/ultravox-70B",
           languageHint: updatedAssistant.data.language || "en",
           voice: updatedAssistant.data.provider || "Mark",

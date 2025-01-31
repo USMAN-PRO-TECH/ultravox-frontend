@@ -46,6 +46,7 @@ export function VoiceSelector({setSelectedVoice, selectedVoice}: {setSelectedVoi
         "Tanya-English" : "/Tanya-English.jpeg",
         "Aaron-English" : "/Aaron-English.jpeg",
         "Hugo-French" : "/Hugo-French.jpeg",
+        "Jinnah" : "/jinnah.jpg",
         // Add more mappings as needed
     };
     if (!voiceImages[voiceName]) {
@@ -59,13 +60,14 @@ export function VoiceSelector({setSelectedVoice, selectedVoice}: {setSelectedVoi
     return voiceImages[voiceName] || `https://avatar.iran.liara.run/public/boy?username=[${voiceName}]` ;
 };
 const getVoiceName = (voiceName: string): string => {
+  
     const voiceNames: { [key: string]: string } = {
         "Trump": "Donald Trump",
         "Steve-English-Australian" : "Bored Ape Yacht Club",
         "Emily-English": "CryptoPunks #1002",
         "Tanya-English" : "CryptoPunks #1003",
         "Aaron-English" : "CryptoPunks #1004",
-        "Hugo-French" : "CryptoPunks #1005",
+        "Hugo-French" : "CryptoPunks #1005", 
         // Add more mappings as needed
     };
     return voiceNames[voiceName] || voiceName;

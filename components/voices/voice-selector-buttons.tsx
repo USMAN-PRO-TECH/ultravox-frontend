@@ -23,6 +23,7 @@ const getVoiceImage = (voiceName: string): string => {
         "Tanya-English" : "/Tanya-English.jpeg",
         "Aaron-English" : "/Aaron-English.jpeg",
         "Hugo-French" : "/Hugo-French.jpeg",
+        "Jinnah" : "/jinnah.jpg",
         // Add more mappings as needed
     };
     if (!voiceImages[voiceName]) {
@@ -117,12 +118,12 @@ const getVoiceName = (voiceName: string): string => {
             className={`h-12 w-1/2 m-2 px-4 rounded-md text-white transition-colors flex items-center justify-center gap-2 ${
               currentVoice === voice.voiceId ? 'bg-purple-400' : 'bg-purple-900 hover:bg-gray-400'
             }`}
-            onClick={() => handleVoiceChange(voice.voiceId)}
+            onClick={() => handleVoiceChange(voice.voiceId as string)}
           > 
               <Avatar className="h-10 w-10">
-                <AvatarImage src={getVoiceImage(voice.name)} />
+                <AvatarImage src={getVoiceImage(voice.name as string)} />
               </Avatar>
-              <span>{getVoiceName(voice.name)}</span> 
+              <span>{getVoiceName(voice.name as string)}</span> 
           </button>
         ))}
       </div>
